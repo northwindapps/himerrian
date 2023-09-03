@@ -7,6 +7,10 @@ class AddTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String newTaskTitle;
+    final TextEditingController _controller = TextEditingController();
+    void _clearTextField() {
+      _controller.clear();
+    }
 
     return Container(
       color: Color(0xff757575),
@@ -37,20 +41,27 @@ class AddTaskScreen extends StatelessWidget {
                 newTaskTitle = newText;
               },
             ),
-            FlatButton(
+            TextButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors
+                    .lightBlueAccent), // Set your desired background color here
+              ),
+              onPressed: () {
+                Provider.of<TaskData>(context, listen: false)
+                    .addTask(newTaskTitle);
+
+                Provider.of<TaskData>(context, listen: false).resetState();
+
+                _clearTextField();
+                Navigator.pop(context);
+              },
               child: Text(
-                'Add',
+                'OK',
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
-              color: Colors.lightBlueAccent,
-              onPressed: () {
-                Provider.of<TaskData>(context, listen: false)
-                    .addTask(newTaskTitle);
-                Navigator.pop(context);
-              },
-            ),
+            )
           ],
         ),
       ),

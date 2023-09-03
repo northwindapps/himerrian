@@ -40,4 +40,14 @@ class TaskData extends ChangeNotifier {
     _tasks.remove(task);
     notifyListeners();
   }
+
+  void addState() {
+    state += 1;
+    notifyListeners();
+  }
+
+  void resetState() {
+    state = 0;
+    notifyListeners();
+  }
 }
